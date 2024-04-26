@@ -21,10 +21,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run build
+    - name: List Files in Distribution Directory
+      run: ls -R ./dist
+
 
     - name : Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
           name: artifactfile
-          path: out
+          path: dist
     
