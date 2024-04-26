@@ -22,12 +22,25 @@ jobs:
     - run: npm install
     - run: npm run build
     - name: List Files in Distribution Directory
-      run: ls -R ./dist
-
+      run: |
+          ls -R ./dist 
+          cd dist;
+          zip -r ../nodejs.zip *
 
     - name : Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
           name: artifactfile
           path: dist
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+
+    - name: update function code directly
+      run: |  
+        aws s3 cp ./Artifacts s3://s3globelife/Release_Sprint01/ --recursive
+        aws lambda update-function-code --function-name Angular-JS-SampleApp1 --region eu-north-1 --zip-file fileb://nodejs.zip
     
