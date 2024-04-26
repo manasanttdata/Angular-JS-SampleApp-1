@@ -20,8 +20,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run build
-    - run: zip -r publish.zip
+    - run: npm run build && zip -r publish.zip
   
   windows-build:
     runs-on: windows-latest
@@ -38,5 +37,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run build
-    - run: zip -r publish.zip
+    #- run: zip -r publish.zip
 
