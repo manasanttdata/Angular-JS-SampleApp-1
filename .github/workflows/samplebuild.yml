@@ -26,6 +26,11 @@ jobs:
           ls -R ./dist 
           cd dist;
           zip -r ../nodejs.zip *
+    - name: copy folders to artifact
+      run: |
+          mkdir Artifacts
+          cp ./nodejs.zip ./Artifacts
+          ls Artifacts
 
     - name : Upload artifact for deployment job
       uses: actions/upload-artifact@v2
