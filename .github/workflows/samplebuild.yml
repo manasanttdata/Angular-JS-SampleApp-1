@@ -2,7 +2,7 @@ name: Code testing all builds for multiple versions
 on: 
   push:
     branches: 
-      - master
+      - main
 
 jobs:
   ubuntu-build:
